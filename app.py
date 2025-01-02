@@ -159,8 +159,8 @@ def parse_duration_to_minutes(duration):
 def main():
     logger.info("Iniciando aplicativo...")
 
-    global INITIALIZED
-    INITIALIZED = True
+    #global INITIALIZED
+    #INITIALIZED = True
 
     #time.sleep(time_low)
     #client_secret = check_secret()
@@ -177,11 +177,14 @@ def main():
     time.sleep(time_high)
     youtube = authenticate_youtube(TOKEN)
 
+    #
+    check_and_save(youtube)
+
     time.sleep(time_high)
-    logger.info("Executando o agendador de tarefas em uma thread separada...")
-    time.sleep(time_low)
-    scheduler_thread = Thread(target=lambda: run_scheduler(youtube))
-    scheduler_thread.start()
+    #logger.info("Executando o agendador de tarefas em uma thread separada...")
+    #time.sleep(time_low)
+    #scheduler_thread = Thread(target=lambda: run_scheduler(youtube))
+    #scheduler_thread.start()
 
 def run_scheduler(youtube):
     last_run_date = None
