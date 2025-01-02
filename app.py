@@ -16,11 +16,12 @@ import isodate
 import pytz
 
 # Configurações iniciais
-CLIENT_SECRET_FILE = "client_secret.json"
+#CLIENT_SECRET_FILE = "client_secret.json"
 SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
 
-TOKEN_FILE_HOST = os.getenv('GOOGLE_OAUTH_CREDENTIALS')
-TOKEN_FILE_LOCAL = "token.json"
+TOKEN = os.getenv('GOOGLE_OAUTH_CREDENTIALS')
+#TOKEN_FILE_HOST = os.getenv('GOOGLE_OAUTH_CREDENTIALS')
+#TOKEN_FILE_LOCAL = "token.json"
 
 DB_FILE = "playlist_data.db"
 
@@ -41,25 +42,25 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', hand
 ])
 logger = logging.getLogger()
 
-def check_secret():
-    logger.info("Checando Token...")
-    time.sleep(time_low)
-    if TOKEN_FILE_HOST:
-        logger.info("Token encontrado")
-        return "token_file_host_found"
-    
-    logger.info("Checando Token localmente...")
-    if os.path.exists(TOKEN_FILE_LOCAL):
-        logger.info("Token local encontrado")
-        return "token_file_local_found"
-    
-    logger.info("Token não encontrado, checando Client Secret...")
-    if os.path.exists(CLIENT_SECRET_FILE):
-        logger.info("Client Secret encontrado")
-        return "client_file_found"
-    
-    logger.info("Client Secret não encontrado")
-    return "no_file_found"
+#def check_secret():
+#    logger.info("Checando Token...")
+#    time.sleep(time_low)
+#    if TOKEN_FILE_HOST:
+#        logger.info("Token encontrado")
+#        return "token_file_host_found"
+#    
+#    logger.info("Checando Token localmente...")
+#    if os.path.exists(TOKEN_FILE_LOCAL):
+#        logger.info("Token local encontrado")
+#        return "token_file_local_found"
+#    
+#    logger.info("Token não encontrado, checando Client Secret...")
+#    if os.path.exists(CLIENT_SECRET_FILE):
+#        logger.info("Client Secret encontrado")
+#        return "client_file_found"
+#    
+#    logger.info("Client Secret não encontrado")
+#    return "no_file_found"
 
 def init_db():
     logger.info("Inicializando banco de dados SQLite...")
@@ -109,15 +110,20 @@ def authenticate_youtube(TOKEN_FILE):
     if os.path.exists(TOKEN_FILE):
         logger.info(f'Credenciais encontradas em {TOKEN_FILE}.')
         credentials = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+        
+        logger.info("Autenticação concluída.")
+        return build("youtube", "v3", credentials=credentials)
     else:
-        logger.info("Credenciais não encontradas. Executando fluxo de autenticação...")
-        flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-        credentials = flow.run_local_server(port=0)
-        with open(TOKEN_FILE, "w") as token_json:
-            token_json.write(credentials.to_json())
-        time.sleep(time_high)
-    logger.info("Autenticação concluída.")
-    return build("youtube", "v3", credentials=credentials)
+        logger.info("Autenticação não pode ser feita.")
+        return
+        #logger.info("Credenciais não encontradas. Executando fluxo de autenticação...")
+        #flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+        #credentials = flow.run_local_server(port=0)
+        #with open(TOKEN_FILE, "w") as token_json:
+        #    token_json.write(credentials.to_json())
+        #time.sleep(time_high)
+    #logger.info("Autenticação concluída.")
+    #return build("youtube", "v3", credentials=credentials)
 
 def get_playlist_video_count_and_duration(youtube):
     logger.info(f"Obtendo dados da playlist '{PLAYLIST_ID}'...")
@@ -156,20 +162,20 @@ def main():
     global INITIALIZED
     INITIALIZED = True
 
-    time.sleep(time_low)
-    client_secret = check_secret()
-    if client_secret == "token_file_host_found":
-        TOKEN_FILE = TOKEN_FILE_HOST
-    elif client_secret == "token_file_local_found":
-        TOKEN_FILE = TOKEN_FILE_LOCAL
-    elif client_secret == "no_file_found":
-        return redirect(url_for("no_file_found"))
+    #time.sleep(time_low)
+    #client_secret = check_secret()
+    #if client_secret == "token_file_host_found":
+    #    TOKEN_FILE = TOKEN_FILE_HOST
+    #elif client_secret == "token_file_local_found":
+    #    TOKEN_FILE = TOKEN_FILE_LOCAL
+    #elif client_secret == "no_file_found":
+    #    return redirect(url_for("no_file_found"))
     
     time.sleep(time_low)
     init_db()
 
     time.sleep(time_high)
-    youtube = authenticate_youtube(TOKEN_FILE)
+    youtube = authenticate_youtube(TOKEN)
 
     time.sleep(time_high)
     logger.info("Executando o agendador de tarefas em uma thread separada...")
@@ -203,10 +209,15 @@ def run_scheduler(youtube):
 # Rotas
 @app.route("/")
 def initialize():
-    global INITIALIZED
-    if not INITIALIZED:
-        main()
-    return redirect(url_for("graph"))
+    #global INITIALIZED
+    #if not INITIALIZED:
+    #    main()
+    return "<h5>/generate para executar o main, /graph para o gráfico, /logs para ver os logs</h5>"
+
+@app.route("/generate")
+def generate():
+    main()
+    return "<h2>Inicializando...</h2>"
 
 @app.route("/graph")
 def graph():
