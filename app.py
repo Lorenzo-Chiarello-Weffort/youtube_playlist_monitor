@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, redirect
 import requests
 from datetime import datetime, timedelta
+import time
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ URL_TO_ACCESS = "https://www.google.com"
 
 @app.route('/')
 def access_url():
+    time.sleep(30)
     global last_access_time, next_access_time, time_remaining, last_time_checked
 
     now = datetime.now()
