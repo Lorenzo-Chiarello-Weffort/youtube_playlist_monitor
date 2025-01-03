@@ -36,7 +36,7 @@ def access_url():
 
     # Calcula o tempo restante para o próximo acesso
     # time_remaining = (next_access_time - now).total_seconds()
-    time_remaining = 7200
+    time_remaining = 60
 
     # Redireciona para a página principal
     return redirect('/index')
