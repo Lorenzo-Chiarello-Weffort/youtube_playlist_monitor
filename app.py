@@ -43,12 +43,16 @@ def access_url():
 
 @app.route('/index')
 def index():
-    time.sleep(10)
     return render_template("index.html",
                            last_access_time=last_access_time,
                            next_access_time=next_access_time,
                            time_remaining=time_remaining,
                            last_time_checked=last_time_checked)
+
+@app.route('/wait')
+def wait():
+    time.sleep(30)
+    return redirect('/')
 
 
 if __name__ == "__main__":
