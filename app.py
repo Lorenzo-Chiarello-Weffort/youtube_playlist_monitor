@@ -8,6 +8,7 @@ app = Flask(__name__)
 last_access_time = None
 next_access_time = None
 time_remaining = None
+last_time_checked = None
 
 TIMEZONE = "America/Sao_Paulo"
 URL_TO_ACCESS = "https://www.google.com"
@@ -15,7 +16,7 @@ URL_TO_ACCESS = "https://www.google.com"
 
 @app.route('/')
 def access_url():
-    global last_access_time, next_access_time, time_remaining
+    global last_access_time, next_access_time, time_remaining, last_time_checked
 
     now = datetime.now()
     last_time_checked = now
