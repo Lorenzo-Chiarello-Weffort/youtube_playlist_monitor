@@ -46,7 +46,7 @@ def index():
     return render_template("index.html",
                            last_access_time=last_access_time,
                            next_access_time=next_access_time,
-                           time_remaining=time_remaining,
+                           time_remaining=20,
                            last_time_checked=last_time_checked)
 
 @app.route('/wait')
