@@ -18,6 +18,7 @@ def access_url():
     global last_access_time, next_access_time, time_remaining
 
     now = datetime.now()
+    last_time_checked = now
 
     # Realiza o acesso à URL
     try:
@@ -43,9 +44,9 @@ def index():
     return render_template("index.html",
                            last_access_time=last_access_time,
                            next_access_time=next_access_time,
-                           time_remaining=time_remaining)
+                           time_remaining=time_remaining,
+                           last_time_checked=last_time_checked)
 
 
 if __name__ == "__main__":
-    # Inicia o servidor Flask
     app.run(debug=True)
