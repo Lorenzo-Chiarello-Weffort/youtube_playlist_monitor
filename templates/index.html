@@ -24,8 +24,7 @@
     <p><strong>Tempo restante:</strong> {{ time_remaining|round if time_remaining else 'Calculando...' }} segundos</p>
 
     <script>
-        // Substituir `{{ time_remaining|round }}` pelo valor real do servidor
-        const timeRemaining = {{ time_remaining|round if time_remaining else 10 }};
+        const timeRemaining = time_remaining;
         setDynamicRefresh(timeRemaining);
     </script>
 </body>

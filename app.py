@@ -15,7 +15,7 @@ TIMEZONE = "America/Sao_Paulo"
 URL_TO_ACCESS = "https://youtube-monitor.onrender.com"
 
 
-@app.route('/')
+@app.route('/access_url')
 def access_url():
     global last_access_time, next_access_time, time_remaining, last_time_checked
 
@@ -49,6 +49,10 @@ def index():
                            next_access_time=next_access_time,
                            time_remaining=time_remaining,
                            last_time_checked=last_time_checked)
+
+@app.route('/')
+def main():
+    return "<h1>Página inicial</h1> <br/> <h2>Rotas:</h2> <h3>/access_url</h3> <h3>/index</h3>"
 
 if __name__ == "__main__":
     app.run(debug=True)
