@@ -17,7 +17,6 @@ URL_TO_ACCESS = "https://www.google.com"
 
 @app.route('/')
 def access_url():
-    time.sleep(10)
     global last_access_time, next_access_time, time_remaining, last_time_checked
 
     now = datetime.now()
@@ -44,6 +43,7 @@ def access_url():
 
 @app.route('/index')
 def index():
+    time.sleep(10)
     return render_template("index.html",
                            last_access_time=last_access_time,
                            next_access_time=next_access_time,
