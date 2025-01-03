@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Informações do Scheduler</h1>
+    <p><strong>Última execução:</strong> {{ last_time_checked if last_time_checked else 'Ainda não realizado' }}</p>
     <p><strong>Último Acesso:</strong> {{ last_access_time if last_access_time else 'Ainda não realizado' }}</p>
     <p><strong>Próximo Acesso:</strong> {{ next_access_time if next_access_time else 'Calculando...' }}</p>
     <p><strong>Tempo Restante:</strong> {{ time_remaining|round if time_remaining else 'Calculando...' }} segundos</p>
