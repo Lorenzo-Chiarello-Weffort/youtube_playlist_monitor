@@ -59,7 +59,7 @@ def load_test():
 
 @app.route('/')
 def main():
-    return "<h1>Página inicial</h1> <br/> <h2>Rotas:</h2> <h3>/load_test - CArrega index com 60 segundos</h3> <h3>/access_url - Executa a operação de acessar url</h3> <h3>/index - Mostra as informações</h3>"
+    return "<h1>Página inicial</h1> <br/> <h2>Rotas:</h2> <h3>/load_test - Carrega index com 60 segundos</h3> <h3>/access_url - Executa a operação de acessar url</h3> <h3>/index - Mostra as informações</h3>"
 
 if __name__ == "__main__":
     app.run(debug=True)

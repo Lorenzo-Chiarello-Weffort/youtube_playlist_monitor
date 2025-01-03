@@ -1,31 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scheduler Info</title>
-    <script>
-        // Função para configurar o refresh dinamicamente
-        function setDynamicRefresh(timeRemaining) {
-            if (timeRemaining) {
-                const metaRefresh = document.createElement('meta');
-                metaRefresh.setAttribute('http-equiv', 'refresh');
-                metaRefresh.setAttribute('content', `${timeRemaining};url=/`);
-                document.head.appendChild(metaRefresh);
-            }
-        }
-    </script>
+    <meta http-equiv="refresh" content="30;url=/" />
 </head>
+
 <body>
     <h1>Informações do Scheduler</h1>
     <p><strong>Última execução:</strong> {{ last_time_checked if last_time_checked else 'Ainda não realizado' }}</p>
     <p><strong>Último acesso:</strong> {{ last_access_time if last_access_time else 'Ainda não realizado' }}</p>
     <p><strong>Próximo acesso:</strong> {{ next_access_time if next_access_time else 'Calculando...' }}</p>
     <p><strong>Tempo restante:</strong> {{ time_remaining|round if time_remaining else 'Calculando...' }} segundos</p>
-
-    <script>
-        const timeRemaining = time_remaining;
-        setDynamicRefresh(timeRemaining);
-    </script>
 </body>
+
 </html>
