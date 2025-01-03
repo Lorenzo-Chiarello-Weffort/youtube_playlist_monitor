@@ -51,6 +51,7 @@ def index():
                            last_time_checked=last_time_checked)
 
 @app.route('/load_test')
+
 def load_test():
     global time_remaining
     time_remaining = 60
