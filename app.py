@@ -16,7 +16,7 @@ TIMEZONE = pytz.timezone("America/Sao_Paulo")
 URL_TO_ACCESS = "https://youtube-monitor.onrender.com"
 
 HOUR_TO_ACCESS = 22  # 0-23
-MINUTES_TO_ACCESS = 44  # 0-59
+MINUTES_TO_ACCESS = 48  # 0-59
 # SECONDS_TO_ACCESS = 10 - Fixed
 
 @app.route('/access_url')
@@ -34,7 +34,8 @@ def access_url():
         print(f"Erro ao acessar a URL: {e}")
 
     # Calcula o próximo horário de acesso considerando a hora e os minutos
-    next_day = (now + timedelta(days=1)).date()
+    # next_day = (now + timedelta(days=1)).date()
+    next_day = (now + timedelta(days=0)).date()
     next_access_time = datetime.combine(next_day, time(hour=HOUR_TO_ACCESS, minute=MINUTES_TO_ACCESS), tzinfo=TIMEZONE) + timedelta(seconds=10)
 
     # Calcula o tempo restante para o próximo acesso
