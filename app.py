@@ -5,6 +5,8 @@ import pytz
 
 app = Flask(__name__)
 
+TEST_SHOW_ROUTES = False
+
 last_access_time = None
 next_access_time = None
 time_remaining = None
@@ -14,7 +16,7 @@ TIMEZONE = pytz.timezone("America/Sao_Paulo")
 URL_TO_ACCESS = "https://youtube-monitor.onrender.com"
 
 HOUR_TO_ACCESS = 22  # 0-23
-MINUTES_TO_ACCESS = 30  # 0-59
+MINUTES_TO_ACCESS = 36  # 0-59
 # SECONDS_TO_ACCESS = 10 - Fixed
 
 @app.route('/access_url')
@@ -60,7 +62,10 @@ def load_test():
 
 @app.route('/')
 def main():
-    return "<h1>Página inicial</h1> <br/> <h2>Rotas:</h2> <h3>/load_test - Carrega index com 60 segundos</h3> <h3>/access_url - Executa a operação de acessar url</h3> <h3>/index - Mostra as informações</h3>"
+    if TEST_SHOW_ROUTES == True:
+        return "<h1>Página inicial</h1> <br/> <h2>Rotas:</h2> <h3>/load_test - Carrega index com 60 segundos</h3> <h3>/access_url - Executa a operação de acessar url</h3> <h3>/index - Mostra as informações</h3>"
+    else:
+        return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)
