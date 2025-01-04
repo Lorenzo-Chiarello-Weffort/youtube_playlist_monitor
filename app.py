@@ -16,7 +16,7 @@ TIMEZONE = pytz.timezone("America/Sao_Paulo")
 URL_TO_ACCESS = "https://youtube-monitor.onrender.com"
 
 HOUR_TO_ACCESS = 22  # 0-23
-MINUTES_TO_ACCESS = 36  # 0-59
+MINUTES_TO_ACCESS = 40  # 0-59
 # SECONDS_TO_ACCESS = 10 - Fixed
 
 @app.route('/access_url')
