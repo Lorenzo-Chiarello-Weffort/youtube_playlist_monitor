@@ -44,7 +44,9 @@ def access_url():
 
 @app.route('/index')
 def index():
+    now = datetime.now(TIMEZONE)
     return render_template("index.html",
+                           now=now,
                            last_access_time=last_access_time,
                            next_access_time=next_access_time,
                            time_remaining=time_remaining,
